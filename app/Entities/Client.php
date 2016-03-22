@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeProject;
+namespace CodeProject\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ class Client extends Model
 {
     protected $fillable = [
     	'name',
-    	'reponsible',
+    	'responsible',
     	'email',
     	'phone',
     	'address',

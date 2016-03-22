@@ -26,9 +26,11 @@ Route::get('/', function () {
 |
 */
 
-Route::get('client', function(){
-	return \CodeProject\Client::all();
-});
+// Route::get('client', function(){
+// 	return \CodeProject\Entities\Client::all();
+// });
+
+Route::resource('client', 'ClientController');
 
 
 Route::group(['middleware' => ['web']], function () {
