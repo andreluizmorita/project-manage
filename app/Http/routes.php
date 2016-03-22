@@ -31,6 +31,7 @@ Route::get('/', function () {
 // });
 
 Route::resource('client', 'ClientController');
+Route::resource('project', 'ProjectController');
 
 
 Route::group(['middleware' => ['web']], function () {

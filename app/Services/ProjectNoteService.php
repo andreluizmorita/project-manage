@@ -4,15 +4,15 @@ namespace CodeProject\Services;
 
 use Validator;
 
-use CodeProject\Validators\ProjectValidator;
-use CodeProject\Repositories\ProjectRepository;
+use CodeProject\Validators\ProjectNoteValidator;
+use CodeProject\Repositories\ProjectNoteRepository;
 
-class ProjectService 
+class ProjectNoteService 
 {
 	protected $repository;
 	protected $validator;
 
-	public function __construct(ProjectRepository $repository, ProjectValidator $validator)
+	public function __construct(ProjectNoteRepository $repository, ProjectNoteValidator $validator)
 	{
 		$this->repository = $repository;
 		$this->validator = $validator;

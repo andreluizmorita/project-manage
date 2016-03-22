@@ -39,18 +39,14 @@ $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator 
         'description' => $faker->sentence,
         'progress' => rand(1,100),
         'status' => rand(1,3),
-        'due_date' => $faker->dateTime('now'),
+        'due_date' => $faker->dateTime('now')
     ];
 });
 
-$factory->define(CodeProject\Entities\ProjectNotes::class, function (Faker\Generator $faker) {
+$factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Generator $faker) {
     return [
         'project_id' => rand(1,10),
-        'title' => $faker->word,
-        'nome' => $faker->paragraph,
-        'description' => $faker->sentence,
-        'progress' => rand(1,100),
-        'status' => rand(1,3),
-        'due_date' => $faker->dateTime('now'),
+        'title' => rand(1,10),
+        'note' => $faker->word
     ];
 });
