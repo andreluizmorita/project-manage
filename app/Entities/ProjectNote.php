@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Client extends Model implements Transformable
-{	
+class ProjectNote extends Model implements Transformable
+{
     use TransformableTrait;
-	    
+
     protected $fillable = [
-    	'name',
-    	'responsible',
-    	'email',
-    	'phone',
-    	'address',
-    	'obs'
+    	'project_id',
+    	'title',
+    	'note'
     ];
+
+    public function project()
+    {
+    	return $this->belogsTo(Project::class);
+    }
 }
