@@ -30,10 +30,18 @@ Route::get('/', function () {
 // 	return \CodeProject\Entities\Client::all();
 // });
 
+Route::get('project/{id}/notes', 'ProjectNoteController@index');
+Route::get('project/{id}/notes/{noteId}', 'ProjectNoteController@show');
+Route::post('project/{id}/notes', 'ProjectNoteController@store');
+
 Route::resource('client', 'ClientController');
 Route::resource('project', 'ProjectController');
 
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
 });
