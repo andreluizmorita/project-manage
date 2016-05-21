@@ -13,7 +13,7 @@ class ClientService
 	protected $validator;
 
 	public function __construct(ClientRepository $repository, ClientValidator $validator)
-	{
+	{	
 		$this->repository = $repository;
 		$this->validator = $validator;
 	}
@@ -36,12 +36,13 @@ class ClientService
         }
 	}
 
-	public function update(array $data, $id)
+	public function update($data = array(), $id = NULL)
 	{	
 		$v = Validator::make($data, $this->validator->rules, $this->validator->messages, $this->validator->attributes);
-
+		
         if (!$v->fails()) 
-        {
+        {	
+
             return $this->repository->update($data, $id);
         }
         else

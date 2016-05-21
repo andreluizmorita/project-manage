@@ -4,6 +4,8 @@ namespace CodeProject\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use CodeProject\Entities\Client;
+
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Services\ClientService;
 
@@ -35,9 +37,9 @@ class ClientController extends Controller
     	return $this->service->create($request->all());
     }
 
-    public function update(Request $request)
-    {
-    	return $this->service->update($request->all());
+    public function update(Request $request, $id)
+    {   
+    	return $this->service->update($request->all(), $id);
     }
 
     public function show($id)
