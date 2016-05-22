@@ -8,6 +8,7 @@ use CodeProject\Entities\Client;
 
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Services\ClientService;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -29,7 +30,18 @@ class ClientController extends Controller
 
     public function index()
     {
-    	return $this->repository->all();
+    	//AuthController->verify('andreluizmorita@gmail.com','teste1234');
+
+        $username = 'andreluizmorita@gmail.com';
+        $password = 'teste1234';
+
+        $use = Auth::validate(['email'=>$username,'password'=>$password]);
+
+        //$use = \CodeProject\Entities\User::where('email', 'andreluizmorita@gmail.com')->first();
+
+        dd($use);
+
+        //return $this->repository->all();
     }
 
     public function store(Request $request)

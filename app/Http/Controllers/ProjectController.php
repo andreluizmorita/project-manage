@@ -35,9 +35,9 @@ class ProjectController extends Controller
     	return $this->service->create($request->all());
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-    	return $this->service->update($request->all());
+    	return $this->service->update($request->all(), $id);
     }
 
     public function show($id)
