@@ -7,6 +7,8 @@ use Validator;
 use CodeProject\Validators\ClientValidator;
 use CodeProject\Repositories\ClientRepository;
 
+use CodeProject\Entities\Project;
+
 class ClientService 
 {
 	protected $repository;
@@ -52,7 +54,6 @@ class ClientService
 				'message' => $v->errors()
 			];
         }
-		
 	}
 
 

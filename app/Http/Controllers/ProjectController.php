@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Services\ProjectService;
 
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
+
 class ProjectController extends Controller
 {
     /**
@@ -26,8 +28,8 @@ class ProjectController extends Controller
 	}
 
     public function index()
-    {
-    	return $this->repository->all();
+    {   
+        return $this->repository->findWhere(['owner_id'=>Authorizer::getResourceOwnerId()]);
     }
 
     public function store(Request $request)
@@ -36,17 +38,39 @@ class ProjectController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    {   
+        if($this->checkProjectOwner($id)==FALSE)
+        {
+            return ['error'=>'Access Forbidden'];
+        }
+
     	return $this->service->update($request->all(), $id);
     }
 
     public function show($id)
-    {
+    {   
+        if($this->checkProjectOwner($id)==FALSE)
+        {
+            return ['error'=>'Access Forbidden'];
+        }
     	return $this->repository->find($id);
     }
 
     public function destroy($id)
-    {
+    {   
+        if($this->checkProjectOwner($id)==FALSE)
+        {
+            return ['error'=>'Access Forbidden'];
+        }
+
     	return $this->repository->delete($id);
+    }
+
+    public function checkProjectOwner($projectId)
+    {
+        $userId = Authorizer::getResourceOwnerId();
+
+        return $this->repository->isOwner($projectId, $userId);
+
     }
 }
