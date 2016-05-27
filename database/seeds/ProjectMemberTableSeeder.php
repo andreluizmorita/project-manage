@@ -20,7 +20,7 @@ class ProjectMemberTableSeeder extends Seeder
         {   
             $data = array(
                 'project_id' => $project["id"],
-                'member_id' => $project["user_id"],
+                'member_id' => $project["owner_id"],
                 'created_at' => date('Y-m-d H:i:s', time()),
                 'updated_at' => date('Y-m-d H:i:s', time())
             );

@@ -13,7 +13,7 @@ class Project extends Model implements Transformable
     use SoftDeletes;
 
     protected $fillable = [
-    	'user_id',
+    	'owner_id',
     	'client_id',
     	'name',
     	'description',
