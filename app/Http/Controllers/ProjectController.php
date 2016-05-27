@@ -53,7 +53,7 @@ class ProjectController extends Controller
         {
             return ['error'=>'Access Forbidden'];
         }
-    	return $this->repository->find($id);
+    	return $this->repository->with('client')->with('owner')->find($id);
     }
 
     public function destroy($id)

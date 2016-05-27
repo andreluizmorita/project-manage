@@ -53,17 +53,6 @@ class ClientController extends Controller
 
     public function destroy($id)
     {
-        $projects = Project::where('client_id',$id)->get();
-
-        foreach ($projects as $project) 
-        {   
-            ProjectNote::where('project_id', $project["id"])->delete();
-        }
-
-        Project::where('client_id', $id)->delete();
         
-        $result = Client::where('id',$id)->delete($id);
-
-        //return ['result'=>($result>0)?TRUE:FALSE];
     }
 }
