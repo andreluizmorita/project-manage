@@ -33,7 +33,7 @@ $factory->define(CodeProject\Entities\Client::class, function (Faker\Generator $
 
 $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
     return [
-        'owner_id' => rand(1,10),
+        'user_id' => rand(1,10),
         'client_id' => rand(1,10),
         'name' => $faker->word,
         'description' => $faker->sentence,
@@ -48,5 +48,12 @@ $factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Genera
         'project_id' => rand(1,10),
         'title' => rand(1,10),
         'note' => $faker->word
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectMember::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => rand(1,100),
+        'member_id' => rand(1,20)
     ];
 });

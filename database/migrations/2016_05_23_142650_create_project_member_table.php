@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableProjectMembers extends Migration
+class CreateProjectMemberTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,8 @@ class CreateTableProjectMembers extends Migration
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('member_id')->unsigned();
-            $table->foreign('member_id')->references('id')->on('users');
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

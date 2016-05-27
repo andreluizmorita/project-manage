@@ -11,6 +11,7 @@ use CodeProject\Services\ClientService;
 use Illuminate\Support\Facades\Auth;
 
 use CodeProject\Entities\Project;
+use CodeProject\Entities\ProjectNote;
 
 class ClientController extends Controller
 {
@@ -52,10 +53,17 @@ class ClientController extends Controller
 
     public function destroy($id)
     {
-    	$result = Project::where('client_id',$id)->delete();
+        $projects = Project::where('client_id',$id)->get();
 
-        $result = $this->repository->delete($id);
+        foreach ($projects as $project) 
+        {   
+            ProjectNote::where('project_id', $project["id"])->delete();
+        }
 
-        return ['result'=>$result];
+        Project::where('client_id', $id)->delete();
+        
+        $result = Client::where('id',$id)->delete($id);
+
+        //return ['result'=>($result>0)?TRUE:FALSE];
     }
 }

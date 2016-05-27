@@ -29,7 +29,7 @@ class ProjectController extends Controller
 
     public function index()
     {   
-        return $this->repository->findWhere(['owner_id'=>Authorizer::getResourceOwnerId()]);
+        return $this->repository->findWhere(['user_id'=>Authorizer::getResourceOwnerId()]);
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, $id)
     {   
-        if($this->checkProjectOwner($id)==FALSE)
+        if($this->checkProjectPermissions($id)==FALSE)
         {
             return ['error'=>'Access Forbidden'];
         }
@@ -49,7 +49,7 @@ class ProjectController extends Controller
 
     public function show($id)
     {   
-        if($this->checkProjectOwner($id)==FALSE)
+        if($this->checkProjectPermissions($id)==FALSE)
         {
             return ['error'=>'Access Forbidden'];
         }
@@ -66,11 +66,22 @@ class ProjectController extends Controller
     	return $this->repository->delete($id);
     }
 
-    public function checkProjectOwner($projectId)
+    private function checkProjectOwner($projectId)
     {
         $userId = Authorizer::getResourceOwnerId();
 
         return $this->repository->isOwner($projectId, $userId);
+    }
 
+    private function checkProjectMember($projectId)
+    {
+        $userId = Authorizer::getResourceOwnerId();
+
+        return $this->repository->hasMember($projectId, $userId);
+    }
+
+    private function checkProjectPermissions($projectId)
+    {
+        return $this->checkProjectOwner($projectId) && $this->checkProjectMember($projectId);
     }
 }

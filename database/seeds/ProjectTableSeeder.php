@@ -13,6 +13,6 @@ class ProjectTableSeeder extends Seeder
     {
     	//\CodeProject\Entities\Project::truncate();
 
-    	factory(\CodeProject\Entities\Project::class, 10)->create();
+    	factory(\CodeProject\Entities\Project::class, 100)->create();
     }
 }

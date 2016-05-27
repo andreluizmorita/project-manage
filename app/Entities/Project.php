@@ -5,13 +5,15 @@ namespace CodeProject\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model implements Transformable
 {
     use TransformableTrait;
+    use SoftDeletes;
 
     protected $fillable = [
-    	'owner_id',
+    	'user_id',
     	'client_id',
     	'name',
     	'description',
