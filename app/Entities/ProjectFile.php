@@ -7,20 +7,21 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectNote extends Model implements Transformable
+class ProjectFile extends Model implements Transformable
 {
     use TransformableTrait;
     use SoftDeletes;
-    
+
     protected $fillable = [
+        'user_id',
         'project_id',
-    	'user_id',
-    	'title',
-    	'note'
+        'name',
+        'description',
+    	'extension'
     ];
 
     public function project()
     {
-    	return $this->belogsTo(Project::class);
+        return $this->belongsTo(Project::class);
     }
 }

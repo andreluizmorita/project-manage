@@ -8,6 +8,8 @@ use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Entities\Project;
 use CodeProject\Validators\ProjectValidator;;
 
+use CodeProject\Presenters\ProjectPresenter;
+
 /**
  * Class ProjectRepositoryEloquent
  * @package namespace CodeProject\Repositories;
@@ -48,7 +50,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     
     public function hasMember($projectId, $memberId)
     {
-        $project = $this->find($projectId);
+        $project = Project::find($projectId);
 
         foreach ($project->members as $member) 
         {
@@ -59,5 +61,8 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
         }
     }
 
-
+    public function presenter()
+    {
+        return ProjectPresenter::class;
+    }
 }

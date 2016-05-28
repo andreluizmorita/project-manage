@@ -7,15 +7,22 @@ use Validator;
 use CodeProject\Validators\ProjectValidator;
 use CodeProject\Repositories\ProjectRepository;
 
+use Illuminate\Contracts\Filesystem\Factory as Storage;
+use Illuminate\Filesystem\Filesystem;
+
 class ProjectService 
 {
 	protected $repository;
 	protected $validator;
+	protected $filesystem;
+	protected $storage;
 
-	public function __construct(ProjectRepository $repository, ProjectValidator $validator)
+	public function __construct(ProjectRepository $repository, ProjectValidator $validator, Filesystem $filesystem, Storage $storage)
 	{
 		$this->repository = $repository;
 		$this->validator = $validator;
+		$this->filesystem = $filesystem;
+		$this->storage = $storage;
 	}
 
 	public function create (array $data)
@@ -54,5 +61,17 @@ class ProjectService
 		
 	}
 
+	public function createFile(array $data)
+	{	
+		$project = $this->repository->skipPresenter()->find($data['project_id']);
+		$projectFile = $project->files()->create($data);
+
+
+		$storage = $this->storage
+			->disk('local')
+			->put($projectFile->id.'.'.$data['extension'], $this->filesystem->get($data['file']));
+		
+		return $storage;
+	}
 
 }

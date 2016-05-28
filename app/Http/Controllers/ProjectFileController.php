@@ -2,6 +2,7 @@
 
 namespace CodeProject\Http\Controllers;
 
+use File;
 use Illuminate\Http\Request;
 
 use CodeProject\Repositories\ProjectRepository;
@@ -9,10 +10,10 @@ use CodeProject\Services\ProjectService;
 
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
-class ProjectController extends Controller
+class ProjectFileController extends Controller
 {
     /**
-     * @var ProjectRepository
+     * @var ProjectFileRepository
      */
     protected $repository;
 
@@ -32,9 +33,27 @@ class ProjectController extends Controller
         return $this->repository->findWhere(['owner_id'=>Authorizer::getResourceOwnerId()]);
     }
 
-    public function store(Request $request)
-    {
-    	return $this->service->create($request->all());
+    public function store(Request $request, $projectId)
+    {   
+        $file = $request->file('file');
+
+        $data = array(
+            'file' => $request->file('file'),
+            'extension' => $file->getClientOriginalExtension(),
+            'name' => $request->name,
+            'project_id' => $projectId,
+            'description' => $request->description,
+            'user_id' => Authorizer::getResourceOwnerId()
+        );
+
+        //dd($data);
+
+        $storage = $this->service->createFile($data);
+
+
+        return array('storage'=>$storage);
+
+    	//return $this->service->create($request->all());
     }
 
     public function update(Request $request, $id)
